@@ -16,7 +16,7 @@ const SignIn = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className="w-full px-4 my-6 min-h-full">
+        <View className="w-full justify-center  px-4 my-6 min-h-[80vh]">
           <Image
             source={images.logo}
             resizeMode="contain"
@@ -50,9 +50,9 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
           {/* Don't have account */}
-          <View className=" justify-center pt-5 flex-row gap-2 ">
+          <View className=" justify-center pt-5 flex-row gap-1 ">
             <Text className="text-lg text-gray-100 font-pregular ">
-              Don't have account ?
+              Don't have an account ?
             </Text>
             <Link href="/sign-up" className="text-lg font-psemibold text-secondary"> Sign Up
             </Link>
