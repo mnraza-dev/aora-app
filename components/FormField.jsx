@@ -1,6 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import {icons } from "../constants";
+import { icons } from "../constants";
 
 const FormField = ({
   title,
@@ -29,9 +29,11 @@ const FormField = ({
             onPress={() => {
               setShowPassword(!showPassword);
             }}
-           
           >
-             <Image className="w-6 h-6" source={!showPassword? icons.eye : icons.eyehide}/>
+            <Image
+              className="w-6 h-6"
+              source={!showPassword ? icons.eye : icons.eyehide}
+            />
           </TouchableOpacity>
         )}
       </View>

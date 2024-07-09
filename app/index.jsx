@@ -24,13 +24,13 @@ export default function App() {
             resizeMode="contain"
           />
           <View className="relative mt-5">
-            <Text className="text-3xl text-white  font-bold text-center ">
+            <Text className="text-4xl text-white  font-bold text-center ">
               Discover Endless Possibilities with
               <Text className="text-secondary-200 "> Aora</Text>
             </Text>
             <Image
               source={images.path}
-              className="w-[96px] absolute -bottom-2 -right-2 h-[15px]"
+              className="w-[96px] absolute -bottom-2 -right-3 h-[15px]"
             />
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center  ">
