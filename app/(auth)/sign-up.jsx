@@ -1,19 +1,56 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
   const [form, setForm] = useState({
-    username:'',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleSubmit = () => {};
+
+
+    const handleSubmit = async () => {
+      const trimmedForm = {
+        username: form.username.trim(),
+        email: form.email.trim(),
+        password: form.password.trim(),
+      };
+  
+      if (!trimmedForm.username || !trimmedForm.email || !trimmedForm.password) {
+        Alert.alert("Error", "Please fill in all the fields");
+        return;
+      }
+  
+      // Basic email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(trimmedForm.email)) {
+        Alert.alert("Error", "Please enter a valid email address");
+        return;
+      }
+  
+      console.log("Form data before submission:", trimmedForm);
+
+
+   setIsSubmitting(true);
+    try {
+      await createUser(trimmedForm.email, trimmedForm.password,trimmedForm.username);
+
+      // set it to global state
+      router.replace("/home");
+    } catch (error) {
+      console.log("Error creating user:", error);
+      Alert.alert("Error", error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -33,21 +70,20 @@ const SignUp = () => {
           <FormField
             title="Username"
             value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e.target.value})}
+            handleChangeText={(e) => setForm({ ...form, username: e })}
             otherStyles="mt-7 "
-        
           />
           <FormField
             title="Email"
             value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e.target.value})}
+            handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7 "
             keyboardType="email-address"
           />
           <FormField
             title="Password"
             value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e.target.value})}
+            handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
           />
 
@@ -62,13 +98,14 @@ const SignUp = () => {
             <Text className="text-lg text-gray-100 font-pregular ">
               Already have an account ?
             </Text>
-            <Link href="/sign-in" className="text-lg font-psemibold text-secondary"> Sign In
+            <Link
+              href="/sign-in"
+              className="text-lg font-psemibold text-secondary"
+            >
+              {" "}
+              Sign In
             </Link>
           </View>
-
-
-         
-
         </View>
       </ScrollView>
     </SafeAreaView>

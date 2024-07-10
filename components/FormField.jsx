@@ -21,7 +21,7 @@ const FormField = ({
           placeholder={placeholder}
           value={value}
           placeholderTextColor="#7b7b8b"
-          onChange={handleChangeText}
+          onChangeText={handleChangeText}
           className="flex-1 text-white font-psemibold text-base"
         />
         {title === "Password" && (
